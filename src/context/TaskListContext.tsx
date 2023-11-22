@@ -36,7 +36,7 @@ const TaskListProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   const toggleTaskStatus = (id: number) => {
-    const updatedTasks = tasks.map((task) =>
+    const updatedTasks: Task[] = tasks.map((task) =>
       task.id === id
         ? { ...task, status: task.status === 'completed' ? 'incomplete' : 'completed' }
         : task

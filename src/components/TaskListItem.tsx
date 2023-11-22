@@ -10,6 +10,7 @@ import TextField from '@mui/material/TextField';
 import DeleteTaskDialog from './DeleteTaskDialog';
 import { TaskListContext } from '../context/TaskListContext';
 import { makeStyles } from '@mui/styles';
+import { Task } from '@/interfaces/task.interface';
 
 const useStyles = makeStyles((theme) => ({
   completedTask: {
@@ -24,7 +25,8 @@ interface TaskListItemProps {
 }
 
 const TaskListItem: React.FC<TaskListItemProps> = ({ task }) => {
-  const { toggleTaskStatus, editTaskTitle } = useContext(TaskListContext);
+  const { toggleTaskStatus, editTaskTitle } = useContext(TaskListContext);;
+
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(task.title);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
