@@ -9,7 +9,16 @@ import EditIcon from '@mui/icons-material/Edit';
 import TextField from '@mui/material/TextField';
 import DeleteTaskDialog from './DeleteTaskDialog';
 import { TaskListContext } from '../context/TaskListContext';
+import { makeStyles } from '@mui/styles';
 
+const useStyles = makeStyles((theme) => ({
+  completedTask: {
+    color: '#c9c9c9', // Change this to the desired color
+  },
+  incompleteTask: {
+    color: 'black',
+  },
+}));
 interface TaskListItemProps {
   task: Task;
 }
@@ -19,6 +28,11 @@ const TaskListItem: React.FC<TaskListItemProps> = ({ task }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(task.title);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+
+
+const classes = useStyles();
+
+
 
   const handleEditSubmit = () => {
     editTaskTitle(task.id, editedTitle);
@@ -49,7 +63,9 @@ const TaskListItem: React.FC<TaskListItemProps> = ({ task }) => {
   };
 
   return (
-    <ListItem>
+    <ListItem className={task.status === 'completed' ? classes.completedTask : classes.incompleteTask} sx={{
+      borderBottom:'1px solid #c9c9c9'
+    }}>
       <Checkbox
         checked={task.status === 'completed'}
         onChange={() => toggleTaskStatus(task.id)}
@@ -60,6 +76,9 @@ const TaskListItem: React.FC<TaskListItemProps> = ({ task }) => {
             value={editedTitle}
             onChange={(e) => setEditedTitle(e.target.value)}
             onKeyPress={handleKeyPress}
+            sx={{
+              width:'100%'
+            }}
           />
           <IconButton onClick={handleEditSubmit}>
             <EditIcon />
