@@ -6,7 +6,7 @@ features list:
     - Mark a task as completed/incomplete.
     - Use TypeScript syntax
 
-online demo available at: 
+online demo available at: https://task-tracker-lewk.vercel.app/
 
 ## Getting Started
 
