@@ -1,10 +1,5 @@
-import { createContext, ReactNode, useState, useEffect } from 'react';
-
-interface Task {
-  id: number;
-  title: string;
-  status: 'completed' | 'incomplete';
-}
+import React, { createContext, ReactNode, useState, useEffect } from 'react';
+import { Task } from '../interfaces/task.interface';
 
 interface TaskListContextProps {
   tasks: Task[];
@@ -18,12 +13,12 @@ const TaskListContext = createContext<TaskListContextProps | undefined>(undefine
 
 const TaskListProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [tasks, setTasks] = useState<Task[]>(() => {
-    const storedTasks = localStorage.getItem('tasks');
+    const storedTasks = typeof window !== "undefined" && localStorage.getItem('tasks');
     return storedTasks ? (JSON.parse(storedTasks) as Task[]) : [];
   });
 
   useEffect(() => {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+    typeof window !== "undefined" && localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
 
   const addTask = (title: string) => {
